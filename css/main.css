@@ -78,6 +78,6 @@
       color: #fff;
   }
 
-.preload-1 { width: 100%;height: 100%;background:url(../img/1.jpeg);background-size: cover;}
+.preload-1 { width: 100%;height: 100%;background: url(../img/1.jpeg) no-repeat center;background-size: contain;}
 .preload-2 { width: 100%;height: 100%;background: url(../img/2.jpeg) no-repeat center;background-size: contain; }
 .preload-3 { width: 100%;height: 100%;background: url(../img/3.jpeg) no-repeat center;background-size: contain; }
