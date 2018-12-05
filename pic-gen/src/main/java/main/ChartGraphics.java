@@ -16,7 +16,10 @@ public class ChartGraphics {
     private BufferedImage image;
     private int imageWidth = 134;  //图片的宽度
     private int imageHeight = 170; //图片的高度
-    private int ratio = 4; // 比例
+    private int headHeight = 46; //头部高度
+    private int mainHeight = 80; //主图高度
+    private int footHeight = 44; //尾部高度
+    private int ratio = 8; // 比例
     //生成图片文件
     @SuppressWarnings("restriction")
     public void createImage(String fileLocation) {
@@ -55,26 +58,38 @@ public class ChartGraphics {
         int shops_2_top = btn2_2_top+H_btn+20;
         int W_btn = 712;  //按钮栏的宽度
 
-        image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+        int realWidth = imageWidth * ratio;
+        int realHeight = imageHeight * ratio;
+        int realHeadHeight = headHeight * ratio;
+        int realMainHeight = mainHeight * ratio;
+        int realFootHeight = footHeight * ratio;
+        image = new BufferedImage(realWidth, realHeight, BufferedImage.TYPE_INT_RGB);
         //设置整张图背景色
         Graphics2D main = image.createGraphics();
         main.setColor(Color.white);
-        main.fillRect(0, 0, imageWidth, imageHeight);
+        main.fillRect(0, 0, realWidth, realHeight);
 
-        //***********************页面头部
+        //头部
         Graphics title = image.createGraphics();
         //设置区域颜色
         title.setColor(Color.WHITE);
         //填充区域并确定区域大小位置
-        title.fillRect(0, 0, imageWidth, H_title);
+        title.fillRect(0, 0, realWidth, realHeadHeight);
         //设置字体颜色，先设置颜色，再填充内容
-        title.setColor(Color.white);
+        title.setColor(Color.BLACK);
         //设置字体
-        Font titleFont = new Font("宋体", Font.BOLD, 14);
+        Font titleFont = new Font("微软雅黑", Font.PLAIN, 180);
         title.setFont(titleFont);
-        title.drawString("my head", 100, (H_title)/2+5);
+        title.drawString("12", realWidth - 400, realHeadHeight - 20);
+        titleFont = new Font("微软雅黑", Font.PLAIN, 25);
+        title.setFont(titleFont);
+        title.drawString("7月12日", realWidth - 160, realHeadHeight - 130);
+        title.drawString("星期五", realWidth - 160, realHeadHeight - 95);
+        title.drawString("农历", realWidth - 160, realHeadHeight - 60);
+        title.drawString("六月初十", realWidth - 160, realHeadHeight - 25);
 
-        //***********************插入中间广告图
+
+        //中间主图
         Graphics mainPic = image.getGraphics();
         BufferedImage bimg = null;
         try {
@@ -82,61 +97,30 @@ public class ChartGraphics {
         } catch (Exception e) {}
 
         if(bimg!=null){
-            mainPic.drawImage(bimg, 0, H_title, imageWidth, H_mainPic, null);
+            mainPic.drawImage(bimg, 0, realHeadHeight, realWidth, realMainHeight, null);
             mainPic.dispose();
         }
-        //***********************设置下面的提示框
 
+        //尾部
         Graphics2D tip = image.createGraphics();
         //设置区域颜色
-        tip.setColor(new Color(255, 120, 89));
+        tip.setColor(Color.WHITE);
         //填充区域并确定区域大小位置
-        tip.fillRect(0, tip_2_top, imageWidth, H_tip);
+        tip.fillRect(0, realHeadHeight + realMainHeight, realWidth, realFootHeight);
         //设置字体颜色，先设置颜色，再填充内容
-        tip.setColor(Color.white);
+        tip.setColor(Color.BLACK);
         //设置字体
         Font tipFont = new Font("宋体", Font.PLAIN, 14);
         tip.setFont(tipFont);
-        tip.drawString("登录成功，本次认证时间1小时", 60, tip_2_top+(H_tip)/2-10);
-        tip.drawString("正在返回商家主页", 100, tip_2_top+(H_tip)/2+10);
+        tip.drawString("foot", 60, realHeadHeight + realMainHeight + (realFootHeight)/2-10);
 
-
-
-        //***********************设置下面的按钮块
-        //设置字体颜色，先设置颜色，再填充内容
-        tip.setColor(Color.black);
-        tip.drawString("您可以选择的操作：", 20, btns_2_top);
-        tip.drawString("下面的小图标：", 20, shops_2_top);
-        //***********************按钮
-        Font btnFont = new Font("宋体", Font.BOLD, 14);
-        Graphics2D btn1 = image.createGraphics();
-        btn1.setColor(new Color(41,192 , 50));//#29C65A
-        btn1.fillRect(10, btn1_2_top, W_btn, H_btn);
-        btn1.setColor(Color.BLACK);
-        btn1.drawRect(10, btn1_2_top, W_btn, H_btn);
-        //btn1 文本
-        btn1.setColor(Color.white);
-        btn1.setFont(btnFont);
-        btn1.drawString("单击我啊", 120, btn1_2_top+(H_btn/2)+5);
-
-        Graphics2D btn2 = image.createGraphics();
-        btn2.setColor(new Color(141,120 , 22));//#29C65A
-        btn2.fillRect(10, btn2_2_top, W_btn, H_btn);
-        btn2.setColor(Color.BLACK);
-        btn2.drawRect(10, btn2_2_top, W_btn, H_btn);
-        //btn2文本
-        btn2.setColor(Color.white);
-        btn2.setFont(btnFont);
-        btn2.drawString("单击我啊", 120, btn2_2_top+(H_btn/2)+5);
-
-        createImage("/Users/dengrongguan/Downloads/test.jpeg");
-
+        createImage("/Users/dengrongguan/Pictures/test.jpeg");
     }
 
     public static void main(String[] args) {
         ChartGraphics cg = new ChartGraphics();
         try {
-            cg.graphicsGeneration("ewew", "1", "12", "/Users/dengrongguan/Downloads/WechatIMG64.jpeg");
+            cg.graphicsGeneration("ewew", "1", "12", "/Users/dengrongguan/Pictures/1.jpeg");
         } catch (Exception e) {
             e.printStackTrace();
         }
