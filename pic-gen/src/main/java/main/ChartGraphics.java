@@ -1,9 +1,6 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -14,11 +11,13 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class ChartGraphics {
     private BufferedImage image;
-    private int imageWidth = 134;  //图片的宽度
-    private int imageHeight = 170; //图片的高度
-    private int headHeight = 46; //头部高度
-    private int mainHeight = 80; //主图高度
-    private int footHeight = 44; //尾部高度
+    private int totalWidth = 210;
+    private int totalHeight = 297;
+    private int imageWidth = 115;  //图片的宽度
+    private int imageHeight = 166; //图片的高度
+    private int headHeight = 45; //头部高度
+    private int mainHeight = 79; //主图高度
+    private int footHeight = 42; //尾部高度
     private int ratio = 8; // 比例
     //生成图片文件
     @SuppressWarnings("restriction")
@@ -58,19 +57,24 @@ public class ChartGraphics {
         int shops_2_top = btn2_2_top+H_btn+20;
         int W_btn = 712;  //按钮栏的宽度
 
+        int realTotalWidth = totalWidth * ratio;
+        int realTotalHeight = totalHeight * ratio;
         int realWidth = imageWidth * ratio;
         int realHeight = imageHeight * ratio;
         int realHeadHeight = headHeight * ratio;
         int realMainHeight = mainHeight * ratio;
         int realFootHeight = footHeight * ratio;
-        image = new BufferedImage(realWidth, realHeight, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(realTotalWidth, realTotalHeight, BufferedImage.TYPE_INT_RGB);
+
+//        image = new BufferedImage(realWidth, realHeight, BufferedImage.TYPE_INT_RGB);
         //设置整张图背景色
         Graphics2D main = image.createGraphics();
-        main.setColor(Color.white);
-        main.fillRect(0, 0, realWidth, realHeight);
+        main.setColor(Color.WHITE);
+        main.fillRect(0, 0, realTotalWidth, realTotalHeight);
 
         //头部
         Graphics title = image.createGraphics();
+
         //设置区域颜色
         title.setColor(Color.WHITE);
         //填充区域并确定区域大小位置
@@ -80,13 +84,28 @@ public class ChartGraphics {
         //设置字体
         Font titleFont = new Font("微软雅黑", Font.PLAIN, 180);
         title.setFont(titleFont);
-        title.drawString("12", realWidth - 400, realHeadHeight - 20);
+        title.drawString("26", realWidth - 400, realHeadHeight - 20);
+        titleFont = new Font("微软雅黑", Font.ITALIC, 28);
+        title.setFont(titleFont);
+        title.drawString("\"鼓楼的夜晚", 50, realHeadHeight - 90);
+        title.drawString("时间匆匆~~\"", 50, realHeadHeight - 40);
         titleFont = new Font("微软雅黑", Font.PLAIN, 25);
         title.setFont(titleFont);
-        title.drawString("7月12日", realWidth - 160, realHeadHeight - 130);
+        title.drawString("4月26日", realWidth - 160, realHeadHeight - 130);
         title.drawString("星期五", realWidth - 160, realHeadHeight - 95);
         title.drawString("农历", realWidth - 160, realHeadHeight - 60);
-        title.drawString("六月初十", realWidth - 160, realHeadHeight - 25);
+        title.drawString("三月廿二", realWidth - 160, realHeadHeight - 25);
+
+        Graphics weatherPic = image.getGraphics();
+        BufferedImage wimg = null;
+        try {
+            wimg = javax.imageio.ImageIO.read(new java.io.File("/Users/dengrongguan/Projects/LoveRecord/img/moon.png"));
+        } catch (Exception e) {}
+
+        if(wimg!=null){
+            weatherPic.drawImage(wimg, 220, realHeadHeight - 110, 60, 60, null);
+            weatherPic.dispose();
+        }
 
 
         //中间主图
@@ -110,19 +129,34 @@ public class ChartGraphics {
         //设置字体颜色，先设置颜色，再填充内容
         tip.setColor(Color.BLACK);
         //设置字体
-        Font tipFont = new Font("宋体", Font.PLAIN, 14);
+        Font tipFont = new Font("STXihei", Font.PLAIN, 25);
         tip.setFont(tipFont);
-        tip.drawString("foot", 60, realHeadHeight + realMainHeight + (realFootHeight)/2-10);
-
-        createImage("/Users/dengrongguan/Pictures/test.jpeg");
+        tip.drawString("去年的今天，我们并肩坐在操场边，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2-50);
+        tip.drawString("这样的夜晚特别值得记住，就开心又紧张地让路人帮忙拍照，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 -10 );
+        tip.drawString("那时的我们还有一些拘谨哈哈哈，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 + 30);
+        tip.drawString("虽然中间还隔了一只狗子的距离，但心已经离你很近很近了～", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 + 70);
+        createImage("/Users/dengrongguan/Projects/LoveRecord/img/test.jpeg");
     }
 
     public static void main(String[] args) {
         ChartGraphics cg = new ChartGraphics();
         try {
-            cg.graphicsGeneration("ewew", "1", "12", "/Users/dengrongguan/Pictures/1.jpeg");
+            cg.graphicsGeneration("ewew", "1", "12", "/Users/dengrongguan/Projects/LoveRecord/img/1.jpeg");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+//    public static void main(String[] args) {
+//        String[] fonts =
+//                GraphicsEnvironment  // GraphicsEnvironment(抽象类)  图形环境类
+//                        .getLocalGraphicsEnvironment()  // 获取本地图形环境
+//                        .getAvailableFontFamilyNames();  // 获取可用字体family名
+//
+//        int fontCount = 0;   // 字体数统计
+//        for(String font : fonts) {
+//            fontCount ++;
+//            System.out.println(font);
+//        }
+//        System.out.println("系统字体数:" + fontCount);
+//    }
 }
