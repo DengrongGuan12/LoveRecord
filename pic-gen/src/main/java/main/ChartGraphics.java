@@ -140,6 +140,7 @@ public class ChartGraphics {
 
     public static void main(String[] args) {
         ChartGraphics cg = new ChartGraphics();
+        String rootPath = "/Users/dengrongguan/Projects/LoveRecord/img/";
         try {
 //            String[] words1 = new String[]{
 //                    "当我挨着你坐在操场边，", "仰脸看云，","我感觉，", "我会飞～"
@@ -194,11 +195,19 @@ public class ChartGraphics {
 //                    "去年的圣诞节，你赖床不想起来，", "当时真的超想在你身边，", "想用咖啡唤醒你～", "不过下午还是乖乖去学习了，","心疼你这只狗子～"
 //            };
 //            cg.graphicsGeneration("25", "12月25日", "星期三", "十一月三十", "/Users/dengrongguan/Documents/LoveRecord/img/chrismas.jpg", "/Users/dengrongguan/Documents/LoveRecord/img/12-25-main.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/12-25.jpeg", words12, "圣诞快乐，", "자기야～", 180, cg.getRealHeadHeight() - 100);
+//            String[] words13 = new String[]{
+//                    "那天做了一夜的梦，梦里全是你。", "梦到我的能量没了，很难过，", "梦到我们一起去了培训班，", "你教语文，我教信息技术，", "还梦到你睡在我身边，我压到你的头发。","我醒了，发现这次你真的在身边～"
+//            };
+//            cg.graphicsGeneration("29", "12月29日", "星期日", "腊月初四", rootPath + "snow.jpg", rootPath + "12-30-main.jpeg", rootPath + "12-29.jpeg", words13, "即使见不到你，", "你总归会在某处，就足够了～", 240, cg.getRealHeadHeight() - 130);
+//            String[] words14 = new String[]{
+//                    "隔壁西溪湿地之旅", "实习摄影师学习拍照后的第一次实践，", "幸好我的模特好看～"
+//            };
+//            cg.graphicsGeneration("10", "11月10日", "星期日", "十月十四", rootPath + "sunny.png", rootPath + "11-10-main.jpeg", rootPath + "11-10.jpeg", words14, "西溪湿地，", "难得有阳光的一天哇～", 200, cg.getRealHeadHeight() - 130);
 
-            String[] words13 = new String[]{
-                    "那天做了一夜的梦，梦里全是你。", "梦到我的能量没了，很难过，", "梦到我们一起去了培训班，", "你教语文，我教信息技术，", "还梦到你睡在我身边，我压到你的头发。","我醒了，发现这次你真的在身边～"
+            String[] words15 = new String[]{
+                    "隔壁西溪湿地之旅", "实习摄影师学习拍照后的第一次实践，", "幸好我的模特好看～"
             };
-            cg.graphicsGeneration("30", "12月30日", "星期日", "腊月初三", "/Users/dengrongguan/Documents/LoveRecord/img/chrismas.jpg", "/Users/dengrongguan/Documents/LoveRecord/img/12-30-main.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/12-30.jpeg", words13, "即使见不到你，", "你总归会在某处，就足够了～", 180, cg.getRealHeadHeight() - 100);
+            cg.graphicsGeneration("15", "11月1日", "星期日", "十月十四", rootPath + "sunny.png", rootPath + "11-10-main.jpeg", rootPath + "11-10.jpeg", words15, "西溪湿地，", "难得有阳光的一天哇～", 200, cg.getRealHeadHeight() - 130);
 
         } catch (Exception e) {
             e.printStackTrace();
