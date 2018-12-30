@@ -45,17 +45,7 @@ public class ChartGraphics {
         }
     }
 
-    public void graphicsGeneration(String name, String id, String classname, String imgurl) {
-        int H_title = 100;     //头部高度
-        int H_mainPic = 814;  //主图高度
-        int H_tip = 60;  //上网提示框高度
-        int H_btn = 25;  //按钮栏的高度
-        int tip_2_top = (H_title+H_mainPic);
-        int btns_2_top = tip_2_top+H_tip+20;
-        int btn1_2_top = btns_2_top+10;
-        int btn2_2_top = btn1_2_top+H_btn;
-        int shops_2_top = btn2_2_top+H_btn+20;
-        int W_btn = 712;  //按钮栏的宽度
+    public void graphicsGeneration(String dateNum, String date, String weekday, String oldDate, String weatherPicUrl, String fromImgUrl, String targetImgUrl, String[] words, String firstTitle, String secondTitle, int weatherPicX) {
 
         int realTotalWidth = totalWidth * ratio;
         int realTotalHeight = totalHeight * ratio;
@@ -84,26 +74,30 @@ public class ChartGraphics {
         //设置字体
         Font titleFont = new Font("微软雅黑", Font.PLAIN, 180);
         title.setFont(titleFont);
-        title.drawString("26", realWidth - 400, realHeadHeight - 20);
+        if (dateNum.length() == 1){
+            title.drawString(dateNum, realWidth - 300, realHeadHeight - 20);
+        }else{
+            title.drawString(dateNum, realWidth - 400, realHeadHeight - 20);
+        }
         titleFont = new Font("微软雅黑", Font.ITALIC, 28);
         title.setFont(titleFont);
-        title.drawString("\"鼓楼的夜晚", 50, realHeadHeight - 90);
-        title.drawString("时间匆匆~~\"", 50, realHeadHeight - 40);
+        title.drawString(firstTitle, 50, realHeadHeight - 90);
+        title.drawString(secondTitle, 50, realHeadHeight - 40);
         titleFont = new Font("微软雅黑", Font.PLAIN, 25);
         title.setFont(titleFont);
-        title.drawString("4月26日", realWidth - 160, realHeadHeight - 130);
-        title.drawString("星期五", realWidth - 160, realHeadHeight - 95);
+        title.drawString(date, realWidth - 160, realHeadHeight - 130);
+        title.drawString(weekday, realWidth - 160, realHeadHeight - 95);
         title.drawString("农历", realWidth - 160, realHeadHeight - 60);
-        title.drawString("三月廿二", realWidth - 160, realHeadHeight - 25);
+        title.drawString(oldDate, realWidth - 160, realHeadHeight - 25);
 
         Graphics weatherPic = image.getGraphics();
         BufferedImage wimg = null;
         try {
-            wimg = javax.imageio.ImageIO.read(new java.io.File("/Users/dengrongguan/Projects/LoveRecord/img/moon.png"));
+            wimg = javax.imageio.ImageIO.read(new java.io.File(weatherPicUrl));
         } catch (Exception e) {}
 
         if(wimg!=null){
-            weatherPic.drawImage(wimg, 220, realHeadHeight - 110, 60, 60, null);
+            weatherPic.drawImage(wimg, weatherPicX, realHeadHeight - 110, 60, 60, null);
             weatherPic.dispose();
         }
 
@@ -112,7 +106,7 @@ public class ChartGraphics {
         Graphics mainPic = image.getGraphics();
         BufferedImage bimg = null;
         try {
-            bimg = javax.imageio.ImageIO.read(new java.io.File(imgurl));
+            bimg = javax.imageio.ImageIO.read(new java.io.File(fromImgUrl));
         } catch (Exception e) {}
 
         if(bimg!=null){
@@ -131,17 +125,36 @@ public class ChartGraphics {
         //设置字体
         Font tipFont = new Font("STXihei", Font.PLAIN, 25);
         tip.setFont(tipFont);
-        tip.drawString("去年的今天，我们并肩坐在操场边，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2-50);
-        tip.drawString("这样的夜晚特别值得记住，就开心又紧张地让路人帮忙拍照，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 -10 );
-        tip.drawString("那时的我们还有一些拘谨哈哈哈，", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 + 30);
-        tip.drawString("虽然中间还隔了一只狗子的距离，但心已经离你很近很近了～", 50, realHeadHeight + realMainHeight + (realFootHeight)/2 + 70);
-        createImage("/Users/dengrongguan/Projects/LoveRecord/img/test.jpeg");
+        int i = -50;
+        for (String word: words){
+            tip.drawString(word, 50, realHeadHeight + realMainHeight + (realFootHeight)/2 + i);
+            i += 40;
+        }
+        createImage(targetImgUrl);
     }
 
     public static void main(String[] args) {
         ChartGraphics cg = new ChartGraphics();
         try {
-            cg.graphicsGeneration("ewew", "1", "12", "/Users/dengrongguan/Projects/LoveRecord/img/1.jpeg");
+//            String[] words1 = new String[]{
+//                    "去年的今天，我们并肩坐在操场边，", "这样的夜晚特别值得记住，就开心又紧张地让路人帮忙拍照，", "那时的我们还有一些拘谨，", "虽然中间还隔了一只狗子的距离，但心已经离你很近很近了～"
+//            };
+//            cg.graphicsGeneration("26", "4月26日", "星期五", "三月廿二", "/Users/dengrongguan/Documents/LoveRecord/img/moon.png", "/Users/dengrongguan/Documents/LoveRecord/img/1.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/4-26.jpeg", words1, "鼓楼的夜晚", "时间匆匆~~", 220);
+
+//            String[] words2 = new String[]{
+//                    "第一次收到자기야的礼物，", "刚好是我没看过但很想看的《小王子》，", "很幸运，", "我现在也有一株可以一直守护的玫瑰花～"
+//            };
+//            cg.graphicsGeneration("31", "3月31日", "星期日", "二月廿五", "/Users/dengrongguan/Documents/LoveRecord/img/rose.png", "/Users/dengrongguan/Documents/LoveRecord/img/0.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/3-31.jpeg", words2, "想成为小王子", "守护我的小玫瑰花~", 300);
+
+            String[] words3 = new String[]{
+                    "자기야，你知道嘛", "在准备这个礼物的时候，","有种在和未来的你说话的感觉，", "很神奇！"
+            };
+            cg.graphicsGeneration("6", "1月6日", "星期日", "腊月初一", "/Users/dengrongguan/Documents/LoveRecord/img/cake.png", "/Users/dengrongguan/Documents/LoveRecord/img/1-6-main.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/1-6.jpeg", words3, "생일축하합니다", "자기야～", 230);
+
+//            String[] words4 = new String[]{
+//                    "，", "今天可以给你加一个愿望哦～"
+//            };
+//            cg.graphicsGeneration("22", "6月22日", "星期六", "五月二十", "/Users/dengrongguan/Documents/LoveRecord/img/cake.png", "/Users/dengrongguan/Documents/LoveRecord/img/1-6-main.jpeg", "/Users/dengrongguan/Documents/LoveRecord/img/1-6.jpeg", words4, "离别都是为了", "下一次再见～", 220);
         } catch (Exception e) {
             e.printStackTrace();
         }
